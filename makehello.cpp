@@ -1,22 +1,50 @@
-// This will generate a single function called sayHello()
-// which prints Hello, World! to the stdin.
+#include <filesystem> 
 #include <fstream>
 #include <iostream>
+#include <print> 
+#include <span>
+#include <string_view>
 
-int main(int argc, char *argv[]) {
-  // make sure we have enough arguments
-  if (argc < 2) {
+using std::cerr;
+using std::filesystem::path;
+using std::ofstream;
+using std::println;
+using std::span;
+using std::string_view;
+
+int main(int argc, char* argv[]) {
+  const span<char*> args{argv, static_cast<size_t>(argc)};
+
+  if (args.size() < 2) {
+    cerr << "Error: Please provide an output filename.\n";
+    cerr << "Usage: " << args[0] << " <output_filename.cpp>\n";
     return 1;
   }
 
-  std::ofstream fout(argv[1], std::ios_base::out);
-  const bool fileOpen = fout.is_open();
-  if (fileOpen) {
-    fout << "#include <iostream>" << std::endl << std::endl;
-    fout << "void sayHello() {" << std::endl;
-    fout << "  std::cout << \"Hello, World!\" << std::endl;" << std::endl;
-    fout << "};" << std::endl;
-    fout.close();
+  const path output_path = args[1];
+
+  constexpr string_view generated_code = R"cpp(
+#include <print>
+
+using std::println;
+
+void sayHello() {
+    println("Hello, World!");
+}
+)cpp";
+
+  println("Attempting to generate file: {}", output_path.string());
+
+  ofstream fout(output_path);
+
+  if (!fout) {
+    cerr << "Error: Could not open file for writing: " << output_path << '\n';
+    return 1;
   }
-  return fileOpen ? 0 : 1; // return 0 if wrote the file
+
+  fout << generated_code;
+  
+  println("Successfully generated {}", output_path.string());
+
+  return 0;
 }
