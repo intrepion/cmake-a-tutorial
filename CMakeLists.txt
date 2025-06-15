@@ -17,6 +17,14 @@ endif()
 add_executable(HelloWorld main.cpp ${EXTRA_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/hello.h)
 add_executable(HelloWorldTest test.cpp)
 
+target_compile_definitions(HelloWorld PRIVATE
+    $<$<CONFIG:Debug>:DEBUG_MODE>
+)
+
+target_compile_options(HelloWorld PRIVATE
+    $<$<CONFIG:Debug>:-O0>
+)
+
 target_include_directories(HelloWorld PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 set(MY_VARIABLE "Hello, CMake!")
