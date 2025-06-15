@@ -2,7 +2,10 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 cmake_minimum_required(VERSION 4.0)
-project(HelloWorld)
+project(HelloWorld VERSION 1.0.0)
+
+# add_subdirectory(src)
+# add_subdirectory(lib)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message(STATUS "Building on Windows")
