@@ -15,6 +15,7 @@ else()
 endif()
 
 add_executable(HelloWorld main.cpp ${EXTRA_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/hello.h)
+add_executable(HelloWorldTest test.cpp)
 
 target_include_directories(HelloWorld PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -44,10 +45,13 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-target_link_libraries(HelloWorld PRIVATE gtest_main)
+target_link_libraries(HelloWorldTest PRIVATE gtest_main)
 
 add_custom_command(
   TARGET HelloWorld POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E echo "Build succeeded!"
   COMMENT "Running post-build step"
 )
+
+enable_testing()
+add_test(NAME HelloWorldTest COMMAND HelloWorldTest)

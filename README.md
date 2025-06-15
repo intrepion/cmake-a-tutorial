@@ -24,3 +24,9 @@ cmake --build .
 ```bash
 ./HelloWorld
 ```
+
+## test
+
+```bash
+ctest --verbose
+```
