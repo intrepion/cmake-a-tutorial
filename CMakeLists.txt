@@ -4,7 +4,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 cmake_minimum_required(VERSION 4.0)
 project(HelloWorld)
 
-add_executable(HelloWorld main.cpp)
+if(WIN32)
+    message(STATUS "Including windows_specific.cpp")
+    set(EXTRA_SOURCES windows_specific.cpp)
+else()
+    message(STATUS "Including unix_specific.cpp")
+    set(EXTRA_SOURCES unix_specific.cpp)
+endif()
+
+add_executable(HelloWorld main.cpp ${EXTRA_SOURCES})
 
 set(MY_VARIABLE "Hello, CMake!")
 message(STATUS "MY_VARIABLE is set to ${MY_VARIABLE}")
