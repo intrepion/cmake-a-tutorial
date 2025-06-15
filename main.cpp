@@ -1,8 +1,6 @@
-#include <print>
-
-using std::println;
+#include "hello.h"
 
 int main() {
-  println("Hello, World!");
+  sayHello();
   return 0;
 }
