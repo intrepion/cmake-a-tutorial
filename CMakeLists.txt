@@ -55,3 +55,11 @@ add_custom_command(
 
 enable_testing()
 add_test(NAME HelloWorldTest COMMAND HelloWorldTest)
+
+install(TARGETS HelloWorld DESTINATION bin)
+
+set(CPACK_PACKAGE_NAME "HelloWorld")
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_PACKAGE_DESCRIPTION "A simple program packaged with CPack")
+set(CPACK_GENERATOR "DragNDrop;TGZ")
+include(CPack)

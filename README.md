@@ -30,3 +30,9 @@ cmake --build .
 ```bash
 ctest --verbose
 ```
+
+## package
+
+```bash
+cpack
+```
